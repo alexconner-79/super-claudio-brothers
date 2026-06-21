@@ -36,7 +36,7 @@ Wait for the user to choose before generating.
 
 ## Step 2: Generate the Theme
 
-Write ONLY this JavaScript block to `/tmp/claudio_theme.js`:
+Write ONLY this JavaScript block to `claudio_theme.js`:
 
 ```javascript
 const THEME = {
@@ -95,7 +95,7 @@ Run this single bash command (do NOT read the template):
 sed '/\/\/ THEME START/,/\/\/ THEME END/{
 /\/\/ THEME START/{
 p
-r /tmp/claudio_theme.js
+r claudio_theme.js
 }
 /\/\/ THEME END/p
 d
