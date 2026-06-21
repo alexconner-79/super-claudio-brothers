@@ -1,12 +1,24 @@
 # Super Claudio Brothers
 
-A Claude-themed Mario-style platformer — built entirely in a single HTML file with vanilla JS and Canvas 2D.
+A Claude Code skill that generates a unique Mario-style platformer every time you run it. Pick a theme, and it builds you a custom game with its own colour palette, level layout, enemy style, and Claudio costume.
 
 ![Title Screen](screenshots/title-screen.png)
 
-## Play
+## Get started
 
-Open `index.html` in any browser. No dependencies, no build step, no server required.
+Copy `skills/super-claudio-brothers/` to `~/.claude/skills/`, then run `/super-claudio-brothers` in Claude Code.
+
+You'll get five options: Classic Claudio (the original, launches instantly) or four randomly generated themes. Pick one, type your own, and the skill builds your game in seconds. Every version is different.
+
+## How it works
+
+The game engine lives in `template.html` with a replaceable theme block. The skill generates ~40 lines of themed JS (colours, level params, costume, background art) and injects them with `sed`. It never reads the 54KB template into context, so generation is fast and cheap.
+
+## The game
+
+You play as Claudio, stomping gremlins across an overworld and underground zone. Question blocks, tokens, pipes, a checkpoint, power-ups (System Prompt makes you big, stars give invincibility), three lives, and a global leaderboard.
+
+Single HTML file. Vanilla JS, Canvas 2D, Web Audio API for all sound. No dependencies, no build step. Open `index.html` in any browser to play the original.
 
 ### Controls
 
@@ -19,41 +31,13 @@ Open `index.html` in any browser. No dependencies, no build step, no server requ
 | P | Pause |
 | L | Leaderboard |
 
-## Features
-
-- Side-scrolling platformer with overworld and underground zones
-- Gremlins, tokens, question blocks, breakable blocks, pipes, and a flagpole
-- Power-ups (System Prompt makes you big, star mode gives invincibility)
-- Checkpoint system and lives
-- Global leaderboard via Supabase
-- Retro pixel-art style with procedural level generation
-- Sound effects and background music (Web Audio API, no external files)
-
-## Claude Code Skill
-
-There's a Claude Code skill that generates unique themed versions of the game. Each run creates a different colour palette, level layout, enemy style, and Claudio costume.
-
-Install the skill by copying `skills/super-claudio-brothers/` to `~/.claude/skills/`, then run `/super-claudio-brothers` in Claude Code.
-
-### How it works
-
-The game engine lives in `template.html` with a replaceable `THEME` block. The skill generates only the theme (~40 lines of JS) and injects it via `sed` — no need to regenerate the entire game. This makes each themed version generate in seconds, not minutes.
-
-## Tech
-
-- Single HTML file, zero dependencies
-- Vanilla JavaScript + Canvas 2D
-- Web Audio API for sound (no audio files)
-- Supabase for global leaderboard
-- Procedural level builder from theme parameters
-
-## Project Structure
+## Project structure
 
 ```
-index.html          # Original playable game
-template.html       # Engine template with replaceable THEME block
+index.html          # The original playable game
+template.html       # Engine with replaceable THEME block
 schema.sql          # Supabase leaderboard schema
 skills/             # Claude Code skill for themed generation
-screenshots/        # Screenshots for README
+screenshots/        # README images
 CLAUDE.md           # Project context for Claude Code
 ```
