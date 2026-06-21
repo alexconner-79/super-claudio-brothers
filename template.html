@@ -81,11 +81,11 @@ let gameStartedAt = 0;
 async function submitScore(initials, score) {
   const clean = initials.toUpperCase().slice(0,3);
   const elapsed = (Date.now() - gameStartedAt) / 1000;
-  if (score > 9999 || score < 0 || elapsed < 15) return { rank: 0, top10: await getLeaderboard() };
+  if (score > 999999 || score < 0 || elapsed < 15) return { rank: 0, top10: await getLeaderboard() };
   await fetch(`${SUPABASE_URL}/rest/v1/scores`, {
     method: 'POST',
     headers: { ...SB_HEADERS, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-    body: JSON.stringify({ initials: clean, score, duration: Math.round(elapsed) }),
+    body: JSON.stringify({ initials: clean, score }),
   });
   const top10 = await getLeaderboard();
   const allRes = await fetch(`${SUPABASE_URL}/rest/v1/scores?order=score.desc&select=initials,score`, { headers: SB_HEADERS });
@@ -762,18 +762,19 @@ function overlap(a,b){ return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y
 // ── Name entry ────────────────────────────────────────────────────────────────
 let lastKeyTime=0;
 function handleNameEntry(){
-  const now=Date.now(); if(now-lastKeyTime<150) return;
-  if(keys['ArrowRight']&&nameCursor<2){nameCursor++;lastKeyTime=now;}
-  if(keys['ArrowLeft']&&nameCursor>0){nameCursor--;lastKeyTime=now;}
-  if(keys['ArrowUp']){nameChars[nameCursor]=nextChar(nameChars[nameCursor],1);lastKeyTime=now;}
-  if(keys['ArrowDown']){nameChars[nameCursor]=nextChar(nameChars[nameCursor],-1);lastKeyTime=now;}
+  const now=Date.now();
   if(keys['Enter']){
     keys['Enter']=false;
     submitScore(nameChars.join(''),pendingScore).then(result=>{
       leaderboardData=result.top10; playerRank=result.rank; state='leaderboard_result';
     });
-    lastKeyTime=now;
+    return;
   }
+  if(now-lastKeyTime<150) return;
+  if(keys['ArrowRight']&&nameCursor<2){nameCursor++;lastKeyTime=now;}
+  if(keys['ArrowLeft']&&nameCursor>0){nameCursor--;lastKeyTime=now;}
+  if(keys['ArrowUp']){nameChars[nameCursor]=nextChar(nameChars[nameCursor],1);lastKeyTime=now;}
+  if(keys['ArrowDown']){nameChars[nameCursor]=nextChar(nameChars[nameCursor],-1);lastKeyTime=now;}
 }
 function nextChar(c,dir){
   const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
