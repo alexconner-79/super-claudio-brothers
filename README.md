@@ -6,13 +6,19 @@ A Claude Code skill that generates a unique Mario-style platformer every time yo
 
 ## Get started
 
-Run this in your terminal to install the skill:
+Run this in your terminal to install:
 
 ```bash
-git clone https://github.com/alexconner-79/super-claudio-brothers.git && cp -r super-claudio-brothers/skills/super-claudio-brothers ~/.claude/skills/
+git clone https://github.com/alexconner-79/super-claudio-brothers.git ~/super-claudio-brothers && cp -r ~/super-claudio-brothers/skills/super-claudio-brothers ~/.claude/skills/
 ```
 
 Then run `/super-claudio-brothers` in Claude Code.
+
+To update to the latest version:
+
+```bash
+cd ~/super-claudio-brothers && git pull && cp -r skills/super-claudio-brothers ~/.claude/skills/
+```
 
 You'll get five options: Classic Claudio (the original, launches instantly) or four randomly generated themes. Pick one, type your own, and the skill builds your game in seconds. Every version is different.
 
