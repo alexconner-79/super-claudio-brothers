@@ -9,7 +9,7 @@ You generate unique themed versions of a platformer by injecting a THEME block i
 
 **IMPORTANT: Do NOT read the template file. You never need to see it. Just write the theme and inject it with sed.**
 
-**IMPORTANT: First, locate the template. Run: `find ~ -name "template.html" -path "*/super-claudio-brothers/*" 2>/dev/null | head -1` and use that path for all commands below. Store it in a variable: `TEMPLATE=$(find ~ -name "template.html" -path "*/super-claudio-brothers/*" 2>/dev/null | head -1)`**
+**IMPORTANT: The template lives at `~/super-claudio-brothers/template.html`. Use this path for all commands below.**
 
 ## Step 1: Theme Selection
 
@@ -27,7 +27,7 @@ Format:
 
 If the user picks Classic Claudio (option 1), skip generation — just copy the template directly:
 ```bash
-cp "$TEMPLATE" super-claudio-brothers.html && open super-claudio-brothers.html
+cp ~/super-claudio-brothers/template.html super-claudio-brothers.html && open super-claudio-brothers.html
 ```
 
 For any other choice, proceed to Step 2.
@@ -99,7 +99,7 @@ r /tmp/claudio_theme.js
 }
 /\/\/ THEME END/p
 d
-}' "$TEMPLATE" > super-claudio-brothers.html && open super-claudio-brothers.html
+}' ~/super-claudio-brothers/template.html > super-claudio-brothers.html && open super-claudio-brothers.html
 ```
 
 ## Layout Rules
